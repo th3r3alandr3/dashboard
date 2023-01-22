@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nuxt-icon svg {
+    width: initial !important;
+    height: initial !important;
+}

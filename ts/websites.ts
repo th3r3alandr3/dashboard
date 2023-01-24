@@ -4,56 +4,21 @@ import {createScreenshot} from './utils';
 import {z} from 'zod';
 import {Md5} from "ts-md5";
 
-
-export interface Website {
-    id: string;
-    title: string;
-    url: string;
-    image: {
-        light: string;
-        dark: string;
-    };
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-
-interface WebsiteGetByIdOptions {
-    id: string;
-}
-
 const websiteGetByIdInput = z.object({
     id: z.string(),
 });
 
-interface WebsiteAddOptions {
-    url: string;
-    title?: string;
-    categoryId?: string;
-}
 
 const websiteAddOptionsInput = z.object({
     url: z.string().max(255).url(),
     title: z.string().max(255),
 });
 
-interface WebsiteDeleteOptions {
-    id: string;
-}
 
 const websiteDeleteOptionsInput = z.object({
     id: z.string()
 });
 
-interface WebsiteModel {
-    id: string;
-    title: string;
-    url: string;
-    img_light: string;
-    img_dark: string;
-    created_at: string;
-    updated_at: string;
-}
 
 const websiteModelSchema = z.object({
     id: z.string().max(100),
@@ -83,12 +48,15 @@ const fromModelToWebsite = (model: WebsiteModel): Website => {
 
 export async function getById(db: DatabaseConnection, options: WebsiteGetByIdOptions) {
     const params = websiteGetByIdInput.parse(options);
-    const results: WebsiteModel[] = await db.query(sql`SELECT * FROM websites WHERE id = ${params.id}`);
+    const results: WebsiteModel[] = await db.query(sql`SELECT *
+                                                       FROM websites
+                                                       WHERE id = ${params.id}`);
     return fromModelToWebsite(results[0]);
 }
 
 export async function list(db: DatabaseConnection) {
-    const results: WebsiteModel[] = await db.query(sql`SELECT * FROM websites`);
+    const results: WebsiteModel[] = await db.query(sql`SELECT *
+                                                       FROM websites`);
     return results.map(fromModelToWebsite);
 }
 
@@ -110,7 +78,8 @@ export async function add(db: DatabaseConnection, options: WebsiteAddOptions) {
 
     await db.query(sql`
         INSERT INTO websites (id, url, title, img_dark, img_light, created_at, updated_at)
-        VALUES (${website.id}, ${website.url}, ${website.title}, ${website.img_dark}, ${website.img_light}, ${website.created_at}, ${website.updated_at});
+        VALUES (${website.id}, ${website.url}, ${website.title}, ${website.img_dark}, ${website.img_light},
+                ${website.created_at}, ${website.updated_at});
     `)
 
     return getById(db, {id: website.id});
@@ -118,6 +87,8 @@ export async function add(db: DatabaseConnection, options: WebsiteAddOptions) {
 
 export async function deleteById(db: DatabaseConnection, options: WebsiteDeleteOptions) {
     const params = websiteDeleteOptionsInput.parse(options);
-    await db.query(sql`DELETE FROM websites WHERE id = ${params.id}`);
+    await db.query(sql`DELETE
+                       FROM websites
+                       WHERE id = ${params.id}`);
     return true;
 }

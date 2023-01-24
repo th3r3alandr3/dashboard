@@ -17,7 +17,8 @@
                 class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
               <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">Website hinzufügen
+                  <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
+                    Website {{ props.mode === 'add' ? 'hinzufügen' : 'bearbeiten' }}
                   </DialogTitle>
                   <div class="mt-2">
                     <form>
@@ -32,7 +33,9 @@
                             placeholder="Name"
                             @change="v$.title.$touch"
                         >
-                        <p v-if="v$.title.$error" class="text-red-500 text-xs italic">{{ v$.title.$errors[0].$message }}</p>
+                        <p v-if="v$.title.$error" class="text-red-500 text-xs italic">{{
+                            v$.title.$errors[0].$message
+                          }}</p>
                       </div>
                       <div class="mb-6">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
@@ -55,7 +58,8 @@
               <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button type="button"
                         class="inline-flex w-full justify-center rounded-md border border-transparent bg-lime-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                        @click="addWebsite">Hinzufügen
+                        @click="validateInput">
+                  {{ props.mode === 'add' ? 'Hinzufügen' : 'Speichern' }}
                 </button>
                 <button type="button"
                         class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -76,14 +80,15 @@ import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from 
 import {useVuelidate} from '@vuelidate/core'
 import {required, url} from '@vuelidate/validators'
 
-const emit = defineEmits(['close'])
-const props = defineProps({open: {type: Boolean, required: true}});
+const emit = defineEmits(['close', 'confirm']);
+const props = defineProps({open: {type: Boolean, required: true}, website: {type: Object, default: null}});
 
-const open = ref(props.open)
+const open = ref(props.open);
+const mode = ref('add');
 
 const formData = reactive({
-  title: '',
-  url: '',
+  title: props.website?.title ?? '',
+  url: props.website?.url ?? ''
 })
 
 const rules = {
@@ -96,30 +101,29 @@ watch(() => props.open, (value) => {
 })
 const v$ = useVuelidate(rules, formData)
 
-async function addWebsite() {
-  try {
-    v$.value.$validate();
-    if (v$.value.$error) {
-      return;
-    }
-    const website = await $fetch("/api/websites/create", {
-      method: "post",
-      body: {
-        title: formData.title,
-        url: formData.url,
-      },
-    });
-  } catch (e) {
-    console.log(e)
-  } finally {
-    close()
+onMounted(() => {
+  console.log(props.website)
+  if (props.website !== null) {
+    mode.value = 'edit'
   }
+})
+
+
+async function validateInput() {
+  v$.value.$validate();
+  if (v$.value.$error) {
+    return;
+  }
+  v$.value.$reset()
+  formData.title = props.website?.title ?? ''
+  formData.url = props.website?.url ?? ''
+  emit('confirm', formData)
 }
 
 function close() {
   v$.value.$reset()
-  formData.title = ''
-  formData.url = ''
+  formData.title = props.website?.title ?? ''
+  formData.url = props.website?.url ?? ''
   emit('close')
 }
 </script>

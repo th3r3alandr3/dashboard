@@ -11,9 +11,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      maxWidth: {
-        '1/3': '33%',
-      }
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-0.3deg)' },
+          '50%': { transform: 'rotate(0.3deg)' },
+        }
+      },
+      animation: {
+        wiggle: 'wiggle 0.5s ease-in-out infinite',
+      },
     },
   },
   plugins: [],

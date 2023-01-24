@@ -115,9 +115,9 @@ async function validateInput() {
     return;
   }
   v$.value.$reset()
+  emit('confirm', formData)
   formData.title = props.website?.title ?? ''
   formData.url = props.website?.url ?? ''
-  emit('confirm', formData)
 }
 
 function close() {

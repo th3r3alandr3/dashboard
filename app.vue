@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Disclosure as="nav" class="bg-slate-500 dark:bg-stone-900" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-slate-500 dark:bg-stone-900 fixed top-0 w-full opacity-75 z-10" v-slot="{ open }">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="relative flex h-16 items-center justify-between">
           <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -58,7 +58,7 @@
                   <MenuItem v-slot="{ active }" class="dark:bg-stone-800">
                     <a href="#"
                        :class="[active ? 'text-stone-600 dark:text-stone-300' : 'text-stone-700 dark:text-stone-400', 'block px-4 py-2 text-sm']"
-                       @click.prevent="setEditDashboard">Dashboard bearbeiten</a>
+                       @click.prevent="toggleEditDashboard">Dashboard bearbeiten {{editDashboard ? 'beenden' : ''}}</a>
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -76,8 +76,8 @@
         </div>
       </DisclosurePanel>
     </Disclosure>
+    <NuxtPage class="bg-slate-300 dark:bg-stone-800 min-h-screen pt-16"/>
     <WebsiteModal :open="showModal" @close="showModal = false" @confirm="createWebsite"/>
-    <NuxtPage class="bg-slate-300 dark:bg-stone-800"/>
   </div>
 </template>
 
@@ -86,19 +86,19 @@ import {ref} from 'vue'
 import {Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/vue'
 import {Bars3Icon, MoonIcon, SunIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 import {useDark, useToggle} from '@vueuse/core';
-import {f} from "ofetch/dist/error-8a55452d";
 
-const isDark = useDark() ?? true;
+const isDark = useDark();
+isDark.value = true; // Default to dark mode
+isDark.value // Need to access it to make it reactive
 const toggleDark = useToggle(isDark);
+
 const showModal = ref(false);
+const website = ref(null)
 
 const editDashboard = ref(false)
 
 provide('editDashboard', readonly(editDashboard))
-
-if (!isDark) {
-  toggleDark();
-}
+provide('addWebsite', readonly(website))
 
 const navigation = [
   {name: 'Dashboard', href: '/', current: true},
@@ -110,13 +110,18 @@ function addWebsite() {
 
 async function createWebsite(data: Partial<Website>) {
   showModal.value = false;
-  const website = await $fetch("/api/websites/create", {
-    method: "post",
-    body: data,
-  });
+  try {
+    website.value = {pending: true, ...data} as any
+    website.value = await $fetch("/api/websites/create", {
+      method: "post",
+      body: data,
+    });
+  } catch (e) {
+    console.error(e)
+  }
 }
 
-function setEditDashboard() {
-  editDashboard.value = true;
+function toggleEditDashboard() {
+  editDashboard.value = !editDashboard.value;
 }
 </script>

@@ -9,12 +9,30 @@ export async function createScreenshot(url: string, fileName: string) {
     const page = await browser.newPage();
     await page.emulateMediaFeatures([{name: 'prefers-color-scheme', value: 'dark'}]);
     await page.setViewport({width: 1920, height: 1080});
-    await page.goto(url, {waitUntil: 'networkidle2'});
-    await page.screenshot({path: `public/thumbnails/${fileName}.jpeg`, quality: 100, type: 'jpeg', fullPage: false});
+    try {
+        await page.goto(url, {waitUntil: 'networkidle2', timeout: 10000});
+    } catch (e) {
+        console.log(e);
+    }
+    await page.screenshot({
+        path: `public/thumbnails/${fileName}.jpeg`,
+        quality: 100,
+        type: 'jpeg',
+        fullPage: false
+    });
     await page.emulateMediaFeatures([{name: 'prefers-color-scheme', value: 'light'}]);
     await page.setViewport({width: 1920, height: 1080});
-    await page.goto(url, {waitUntil: 'networkidle2'});
-    await page.screenshot({path: `public/thumbnails/${fileName}-light.jpeg`, quality: 100, type: 'jpeg', fullPage: false});
+    try {
+        await page.goto(url, {waitUntil: 'networkidle2', timeout: 10000});
+    } catch (e) {
+        console.log(e);
+    }
+    await page.screenshot({
+        path: `public/thumbnails/${fileName}-light.jpeg`,
+        quality: 100,
+        type: 'jpeg',
+        fullPage: false
+    });
     await browser.close();
     return {dark: `/${fileName}.jpeg`, light: `/${fileName}-light.jpeg`};
 }

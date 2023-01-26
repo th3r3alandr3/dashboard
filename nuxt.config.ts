@@ -1,5 +1,19 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+    app: {
+        head: {
+            charset: 'utf-8',
+            viewport: 'width=500, initial-scale=1',
+            title: 'Webseiten-Übersicht - Verwalte deine persönliche Webseiten-Sammlung',
+            meta: [
+                { name: 'description', content: 'Erstelle deine eigene personalisierte Webseiten-Übersicht. Füge deine Lieblingswebseiten hinzu, organisiere und verwalte sie nach deinen Wünschen. Verpasse nie wieder wichtige Webinhalte.' }
+            ],
+            htmlAttrs: {
+                lang: 'de',
+                class: 'dark',
+            }
+        }
+    },
     css: ['~/assets/css/main.css'],
     modules: [
         '@nuxt/image-edge',
@@ -14,9 +28,6 @@ export default defineNuxtConfig({
     },
     tailwindcss: {
         viewer: true,
-    },
-    image: {
-        provider: 'ipx',
     },
     runtimeConfig: {
         databasePath: process.env.DATABASE_PATH,

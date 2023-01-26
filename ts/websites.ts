@@ -134,10 +134,12 @@ export async function update(db: DatabaseConnection, options: WebsiteUpdateOptio
         updated = true;
     }
 
-    console.log(params, params.priority, website.priority);
+
     if (params.priority !== undefined && params.priority !== website.priority) {
         await updatePriority(db, {id: website.id, newPriority: params.priority, oldPriority: website.priority});
         updated = true;
+    } else {
+        console.log(website.id + 'not updated');
     }
 
     if (updated) {
@@ -164,7 +166,7 @@ export async function updatePriority(db: DatabaseConnection, options: WebsiteSor
         await db.query(sql`UPDATE websites
                            SET priority = case
                                               when id = ${prams.id} then ${prams.newPriority}
-                                              when priority >= ${prams.newPriority} then priority + 1
+                                              when priority >= ${prams.newPriority} and priority < ${prams.oldPriority} then priority + 1
                                               else priority end`);
     } else {
         await db.query(sql`UPDATE websites

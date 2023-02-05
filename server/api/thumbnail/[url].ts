@@ -1,7 +1,5 @@
-import * as puppeteer from 'puppeteer';
 import {Md5} from 'ts-md5';
-import {existsSync} from 'fs';
-import {createScreenshot} from "~/ts/utils";
+import {createScreenshot} from "~/server/misc/utils";
 
 export default defineEventHandler(async (event) => {
     try {

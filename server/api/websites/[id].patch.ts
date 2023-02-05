@@ -1,5 +1,5 @@
-import * as Websites from '~/ts/websites';
-import {initializeDatabase} from '~/ts/database';
+import * as Websites from '~/server/database/websites';
+import {initializeDatabase} from '~/server/database/database';
 
 export default defineEventHandler(async (event) => {
     const {databasePath} = useRuntimeConfig();

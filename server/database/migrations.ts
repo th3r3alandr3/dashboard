@@ -1,7 +1,7 @@
 import { DatabaseConnection } from '@databases/sqlite';
 import {sql} from './database';
-import * as Users from "~/ts/users";
-import * as Websites from "~/ts/websites";
+import * as Users from "~/server/database/users";
+import * as Websites from "~/server/database/websites";
 export async function init(db: DatabaseConnection) {
     await up(db);
 }

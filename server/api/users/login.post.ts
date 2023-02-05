@@ -1,5 +1,5 @@
-import * as Users from '~/ts/users';
-import {initializeDatabase} from '~/ts/database';
+import * as Users from '~/server/database/users';
+import {initializeDatabase} from '~/server/database/database';
 
 export default defineEventHandler(async (event) => {
     const {databasePath} = useRuntimeConfig();

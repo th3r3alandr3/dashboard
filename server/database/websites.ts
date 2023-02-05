@@ -1,8 +1,8 @@
 import {DatabaseConnection, sql} from '@databases/sqlite';
 import {randomUUID} from 'node:crypto';
-import {createScreenshot} from './utils';
 import {z} from 'zod';
 import {Md5} from "ts-md5";
+import {createScreenshot} from "~/server/misc/utils";
 
 const websiteGetByIdInput = z.object({
     id: z.string(),

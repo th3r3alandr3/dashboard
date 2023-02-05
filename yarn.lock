@@ -729,14 +729,6 @@
   "resolved" "https://registry.npmjs.org/@phc/format/-/format-1.0.0.tgz"
   "version" "1.0.0"
 
-"@pinia/nuxt@^0.4.6":
-  "integrity" "sha512-HjrYEfLdFpmsjhicPJgL36jVhzHWukIQPFFHGTSF84Cplu+f2nY2XHKqe9ToHzE9rLee2RjLOwAzOnXa/I/u6A=="
-  "resolved" "https://registry.npmjs.org/@pinia/nuxt/-/nuxt-0.4.6.tgz"
-  "version" "0.4.6"
-  dependencies:
-    "@nuxt/kit" "^3.0.0"
-    "pinia" ">=2.0.27"
-
 "@popperjs/core@^2.9.3":
   "integrity" "sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.6.tgz"
@@ -903,16 +895,6 @@
   "integrity" "sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA=="
   "resolved" "https://registry.npmjs.org/@types/parse-json/-/parse-json-4.0.0.tgz"
   "version" "4.0.0"
-
-"@types/phantom@^3.2.6":
-  "integrity" "sha512-+9Z8AeOLfQSuEZ5e11b/UnYQx3tleDNdsiaizwbq1Fm2k4Cvg4VipkbPu67Iqj651oZ/By0jyv2bCd1PLZtNkA=="
-  "resolved" "https://registry.npmjs.org/@types/phantom/-/phantom-3.2.6.tgz"
-  "version" "3.2.6"
-
-"@types/phantomjs@^1.9.32":
-  "integrity" "sha512-zNRoou+RBGlNi1z6n/QDJdSssTJ8kCXNltjOpt/Va4dnLNsKygbJALpJ19qVNiIFcd6+PLNaDpTdUosMye2yGg=="
-  "resolved" "https://registry.npmjs.org/@types/phantomjs/-/phantomjs-1.9.32.tgz"
-  "version" "1.9.32"
 
 "@types/resolve@1.20.2":
   "integrity" "sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q=="
@@ -2397,11 +2379,6 @@
   "integrity" "sha512-RyZrFi6PNpBFbIaQjXDlFIhFVqV42QeKSZX1yQIl6ihImq6vcHNGMtqQ/QzY3RMPuYSkvsRwtnt5M9NeYxKt0g=="
   "resolved" "https://registry.npmjs.org/cookie-es/-/cookie-es-0.5.0.tgz"
   "version" "0.5.0"
-
-"cookie-signature@^1.2.0":
-  "integrity" "sha512-R0BOPfLGTitaKhgKROKZQN6iyq2iDQcH1DOF8nJoaWapguX5bC2w+Q/I9NmmM5lfcvEarnLZr+cCvmEYYSXvYA=="
-  "resolved" "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.0.tgz"
-  "version" "1.2.0"
 
 "cookie@^0.5.0":
   "integrity" "sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw=="
@@ -5348,14 +5325,6 @@
   "resolved" "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz"
   "version" "2.3.0"
 
-"pinia@^2.0.29", "pinia@>=2.0.27":
-  "integrity" "sha512-5z/KpFecq/cIgfeTnulJXldiLcTITRkTe3N58RKYSj0Pc1EdR6oyCdnf5A9jLoVwBqX5LtHhd0kGlpzWvk9oiQ=="
-  "resolved" "https://registry.npmjs.org/pinia/-/pinia-2.0.29.tgz"
-  "version" "2.0.29"
-  dependencies:
-    "@vue/devtools-api" "^6.4.5"
-    "vue-demi" "*"
-
 "pkg-types@^1.0.1":
   "integrity" "sha512-jHv9HB+Ho7dj6ItwppRDDl0iZRYBD0jsakHXtFgoLr+cHSF6xC+QL54sJmWxyGxOLYSHm0afhXhXcQDQqH9z8g=="
   "resolved" "https://registry.npmjs.org/pkg-types/-/pkg-types-1.0.1.tgz"
@@ -6885,7 +6854,7 @@
     "media-typer" "0.3.0"
     "mime-types" "~2.1.24"
 
-"typescript@*", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.4.4":
+"typescript@*", "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta":
   "integrity" "sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.9.4.tgz"
   "version" "4.9.4"
@@ -7247,7 +7216,7 @@
   "resolved" "https://registry.npmjs.org/vue-toastification/-/vue-toastification-2.0.0-rc.5.tgz"
   "version" "2.0.0-rc.5"
 
-"vue@^2.0.0 || >=3.0.0", "vue@^2.6.14 || ^3.2.0", "vue@^2.7.0 || ^3.0.0", "vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.2", "vue@^3.2.25", "vue@^3.2.45", "vue@>= 3", "vue@>=2.7 || >=3", "vue@3.2.45":
+"vue@^2.0.0 || >=3.0.0", "vue@^2.7.0 || ^3.0.0", "vue@^2.7.0 || ^3.2.25", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.2", "vue@^3.2.25", "vue@^3.2.45", "vue@>= 3", "vue@>=2.7 || >=3", "vue@3.2.45":
   "integrity" "sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.45.tgz"
   "version" "3.2.45"

@@ -21,7 +21,6 @@ export default defineNuxtConfig({
         'nuxt-icons',
         '@vueuse/nuxt',
         '@nuxtjs/tailwindcss',
-        '@pinia/nuxt',
         '@sidebase/nuxt-auth',
     ],
     components: {
@@ -35,4 +34,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
         databasePath: process.env.DATABASE_PATH,
     },
+    auth: {
+        origin: process.env.BASE_URL,
+    }
 })

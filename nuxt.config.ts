@@ -1,6 +1,7 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 const ONE_WEEK = 60 * 60 * 24 * 1000 * 7
 export default defineNuxtConfig({
+    sourcemap: false,
     app: {
         head: {
             charset: 'utf-8',

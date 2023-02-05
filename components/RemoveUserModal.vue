@@ -49,11 +49,11 @@
                       as="h3"
                       class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100"
                     >
-                      Website löschen
+                      Benutzer löschen
                     </DialogTitle>
                     <div class="mt-2">
                       <p class="text-sm text-gray-500 dark:text-gray-400">
-                        Soll die Website wirklich gelöscht werden?
+                        Soll die Benutzer wirklich gelöscht werden?
                       </p>
                     </div>
                   </div>
@@ -63,7 +63,7 @@
                 <button
                   type="button"
                   class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
-                  @click="$emit('confirm')"
+                  @click="$emit('confirm', props.user)"
                 >
                   Löschen
                 </button>
@@ -91,7 +91,7 @@ import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
 
 defineEmits(['close', 'confirm']);
 
-const props = defineProps({open: {type: Boolean, required: true}});
+const props = defineProps({open: {type: Boolean, required: true}, user: {type: Object, default: null}});
 const open = ref(props.open)
 watch(() => props.open, (value) => {
   open.value = value

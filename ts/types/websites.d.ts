@@ -36,6 +36,7 @@ interface WebsiteSortOptions {
     id: string;
     newPriority: number;
     oldPriority: number;
+    userId: string;
 }
 
 
@@ -45,6 +46,7 @@ interface WebsiteModel {
     url: string;
     priority: number;
     img_light: string;
+    user_id: string;
     img_dark: string;
     created_at: string;
     updated_at: string;

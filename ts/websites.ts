@@ -30,6 +30,7 @@ const websiteSortOptionsInput = z.object({
     id: z.string(),
     newPriority: z.number().int().min(0),
     oldPriority: z.number().int(),
+    userId: z.string(),
 });
 
 
@@ -43,6 +44,7 @@ const websiteModelSchema = z.object({
     title: z.string(),
     url: z.string(),
     priority: z.number(),
+    // user_id: z.string(),
     img_light: z.string(),
     img_dark: z.string(),
     created_at: z.string(),
@@ -66,6 +68,27 @@ const fromModelToWebsite = (model: WebsiteModel): Website => {
     }
 }
 
+export async function createTable(db: DatabaseConnection) {
+    await db.query(sql`
+        CREATE TABLE IF NOT EXISTS websites (
+            id TEXT PRIMARY KEY,
+            user_id TEXT NOT NULL,
+            title TEXT NOT NULL,
+            url TEXT NOT NULL,
+            img_light TEXT NOT NULL,
+            img_dark TEXT NOT NULL,
+            priority INTEGER NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_DATE,
+            updated_at DATETIME,
+            FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+    `);
+}
+
+export async function dropTable(db: DatabaseConnection) {
+    await db.query(sql`DROP TABLE IF EXISTS websites;`);
+}
+
 export async function getById(db: DatabaseConnection, options: WebsiteGetByIdOptions) {
     const params = websiteGetByIdInput.parse(options);
     const results: WebsiteModel[] = await db.query(sql`SELECT *
@@ -74,9 +97,10 @@ export async function getById(db: DatabaseConnection, options: WebsiteGetByIdOpt
     return fromModelToWebsite(results[0]);
 }
 
-export async function list(db: DatabaseConnection) {
+export async function list(db: DatabaseConnection, user: User) {
     const results: WebsiteModel[] = await db.query(sql`SELECT *
                                                        FROM websites
+                                                       WHERE user_id = ${user.id}
                                                        ORDER BY priority ASC`);
     return results.map(fromModelToWebsite);
 }
@@ -85,11 +109,10 @@ export async function count(db: DatabaseConnection) {
     const results = await db.query(sql`SELECT COUNT(*) AS total
                                        FROM websites`);
     const params = websiteTotalSchema.parse(results[0]);
-    console.log(results, params);
     return params.total;
 }
 
-export async function add(db: DatabaseConnection, options: WebsiteAddOptions) {
+export async function add(db: DatabaseConnection, options: WebsiteAddOptions, user: User) {
     const params = websiteAddOptionsInput.parse(options);
 
     const fileName = Md5.hashStr(params.url)
@@ -99,6 +122,7 @@ export async function add(db: DatabaseConnection, options: WebsiteAddOptions) {
         id: randomUUID(),
         url: params.url,
         title: params.title,
+        user_id: user.id,
         img_dark: dark,
         img_light: light,
         priority: await count(db),
@@ -107,15 +131,15 @@ export async function add(db: DatabaseConnection, options: WebsiteAddOptions) {
     }
 
     await db.query(sql`
-        INSERT INTO websites (id, url, title, img_dark, img_light, created_at, updated_at, priority)
+        INSERT INTO websites (id, url, title, img_dark, img_light, created_at, updated_at, priority, user_id)
         VALUES (${website.id}, ${website.url}, ${website.title}, ${website.img_dark}, ${website.img_light},
-                ${website.created_at}, ${website.updated_at}, ${website.priority});
+                ${website.created_at}, ${website.updated_at}, ${website.priority}, ${website.user_id});
     `)
 
     return getById(db, {id: website.id});
 }
 
-export async function update(db: DatabaseConnection, options: WebsiteUpdateOptions) {
+export async function update(db: DatabaseConnection, options: WebsiteUpdateOptions, user: User) {
     const params = websiteUpdateOptionsInput.parse(options);
     const website = await getById(db, {id: params.id});
     let updated = false;
@@ -136,10 +160,8 @@ export async function update(db: DatabaseConnection, options: WebsiteUpdateOptio
 
 
     if (params.priority !== undefined && params.priority !== website.priority) {
-        await updatePriority(db, {id: website.id, newPriority: params.priority, oldPriority: website.priority});
+        await updatePriority(db, {id: website.id, newPriority: params.priority, oldPriority: website.priority, userId: user.id});
         updated = true;
-    } else {
-        console.log(website.id + 'not updated');
     }
 
     if (updated) {
@@ -159,7 +181,6 @@ export async function update(db: DatabaseConnection, options: WebsiteUpdateOptio
 
 export async function updatePriority(db: DatabaseConnection, options: WebsiteSortOptions) {
     const prams = websiteSortOptionsInput.parse(options);
-    console.log(prams);
     if (prams.newPriority === prams.oldPriority)
         return true;
     if (prams.newPriority < prams.oldPriority) {
@@ -167,13 +188,15 @@ export async function updatePriority(db: DatabaseConnection, options: WebsiteSor
                            SET priority = case
                                               when id = ${prams.id} then ${prams.newPriority}
                                               when priority >= ${prams.newPriority} and priority < ${prams.oldPriority} then priority + 1
-                                              else priority end`);
+                                              else priority end
+                           WHERE user_id = ${prams.userId}`);
     } else {
         await db.query(sql`UPDATE websites
                            SET priority = case
                                               when id = ${prams.id} then ${prams.newPriority}
                                               when priority <= ${prams.newPriority} and priority > ${prams.oldPriority}  then priority - 1
-                                              else priority end`);
+                                              else priority end
+                           WHERE user_id = ${prams.userId}`);
     }
     return true;
 }

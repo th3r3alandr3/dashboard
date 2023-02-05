@@ -6,3 +6,7 @@
     width: initial !important;
     height: initial !important;
 }
+
+.router-link-exact-active {
+    @apply font-bold bg-slate-400 dark:bg-stone-800 text-lime-500 dark:text-lime-500;
+}

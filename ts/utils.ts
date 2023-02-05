@@ -44,3 +44,8 @@ export async function wait(time: number): Promise<void> {
         }, time);
     });
 }
+
+export function removePasswordFromUser(user: User): Partial<User> {
+    const {password, ...rest} = user;
+    return rest;
+}

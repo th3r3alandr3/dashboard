@@ -113,7 +113,7 @@ const title = computed(() => {
 })
 
 function linkClicked() {
-    if (editDashboard) {
+    if (editDashboard.value) {
         showEditWebsiteModal.value = true;
     } else {
         window.open(props.website.url, '_blank');

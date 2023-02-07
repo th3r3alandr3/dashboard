@@ -1,6 +1,8 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import {NuxtAuthHandler} from '#auth'
 import axios from "axios";
+import {initializeDatabase} from "~/server/database/database";
+import * as Users from "~/server/database/users";
 
 export default NuxtAuthHandler({
     secret: 'qr2+WOdAfavxkX13ieii7w==',
@@ -49,15 +51,16 @@ export default NuxtAuthHandler({
                 username: {label: 'Username', type: 'text'},
                 password: {label: 'Password', type: 'password'}
             },
-            async authorize(credentials: Record<string, Record<string, string>>) {
+            async authorize(credentials: Record<string, string>) {
                 try {
-                    const { baseURL } = useRuntimeConfig();
-                    const response = await axios.post(`${baseURL}/api/users/login`, {username: credentials.username, password: credentials.password})
-                    const user = response.data as User;
+                    const { databasePath } = useRuntimeConfig();
+                    const database = await initializeDatabase(databasePath);
+                    const user = await Users.login(database, {username: credentials.username, password: credentials.password});
                     if (user) {
                         return {id: user.id, username: user.username, roles: user.roles};
                     }
                 } catch (e) {
+                    console.error(e);
                     return null;
                 }
 

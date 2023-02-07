@@ -7,6 +7,7 @@ export default NuxtAuthHandler({
     session: {
         strategy: 'jwt'
     },
+    debug: true,
     jwt: {
         maxAge: 60 * 60 * 24 * 30,
     },

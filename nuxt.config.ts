@@ -2,6 +2,7 @@
 const ONE_WEEK = 60 * 60 * 24 * 1000 * 7
 export default defineNuxtConfig({
     sourcemap: false,
+    debug: true,
     app: {
         head: {
             charset: 'utf-8',

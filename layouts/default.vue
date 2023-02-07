@@ -211,7 +211,6 @@ async function changePassword(data: { password: string, newPassword: string }) {
             toast.error(data.message);
         else
             toast.error('Ein Fehler ist aufgetreten.');
-        console.error(data.statusCode, data.message);
     }
 }
 </script>

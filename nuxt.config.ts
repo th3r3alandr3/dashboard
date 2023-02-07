@@ -34,8 +34,12 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         databasePath: process.env.DATABASE_PATH,
+        baseURL: process.env.BASE_URL,
     },
     auth: {
         origin: process.env.BASE_URL,
+    },
+    build : {
+        transpile: ['vue-toastification']
     }
 })

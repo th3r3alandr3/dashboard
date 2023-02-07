@@ -188,7 +188,6 @@ export async function changePassword(db: DatabaseConnection, options: ChangePass
 
         return getById(db, {id: user.id});
     }
-    console.log('Das Passwort war ungültig.', params.newPassword, params.password, params.username);
     return createError({statusMessage: 'Das Passwort war ungültig.', statusCode: 401,});
 }
 

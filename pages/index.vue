@@ -100,7 +100,6 @@ async function createWebsite(data: Partial<Website>) {
             headers,
         }));
     } catch (e) {
-        console.log("Error while creating website: " + e);
         toast.error("Die Website konnte nicht hinzugefügt werden!");
         const websiteIndex = websites.findIndex((website) => website.url === data.url);
         if (websiteIndex !== -1) {

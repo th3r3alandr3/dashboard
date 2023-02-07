@@ -5,7 +5,13 @@ export async function createScreenshot(url: string, fileName: string) {
     if (existsSync(`public/thumbnails/${fileName}.jpeg`)) {
         return {dark: `/${fileName}.jpeg`, light: `/${fileName}-light.jpeg`};
     }
-    const browser = await puppeteer.launch();
+    const { usePuppeteerOptions } = useRuntimeConfig();
+    const puppeteerOptions = {
+        headless: true,
+        executablePath: '/usr/bin/chromium-browser',
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    };
+    const browser = await puppeteer.launch(usePuppeteerOptions === 'true' ? puppeteerOptions : undefined);
     const page = await browser.newPage();
     await page.emulateMediaFeatures([{name: 'prefers-color-scheme', value: 'dark'}]);
     await page.setViewport({width: 1920, height: 1080});

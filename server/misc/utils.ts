@@ -26,7 +26,7 @@ export async function createScreenshot(url: string, fileName: string) {
         type: 'jpeg',
         fullPage: false
     });
-    if (existsSync(`.output'`)) {
+    if (existsSync(`.output`)) {
         await page.screenshot({
             path: `.output/public/thumbnails/${fileName}.jpeg`,
             quality: 100,
@@ -47,7 +47,7 @@ export async function createScreenshot(url: string, fileName: string) {
         type: 'jpeg',
         fullPage: false
     });
-    if (existsSync(`.output'`)) {
+    if (existsSync(`.output`)) {
         await page.screenshot({
             path: `.output/public/thumbnails/${fileName}.jpeg`,
             quality: 100,

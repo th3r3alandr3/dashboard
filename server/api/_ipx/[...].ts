@@ -23,7 +23,6 @@ export default defineEventHandler(async (event) => {
         event.node.res.setHeader(name, ipxResponse.headers[name]);
     }
     event.node.res.end(ipxResponse.body);
-    event.node.res.end();
 
     return event;
 });

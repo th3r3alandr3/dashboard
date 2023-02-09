@@ -1,8 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 const ONE_WEEK = 60 * 60 * 24 * 1000 * 7
 export default defineNuxtConfig({
-    sourcemap: false,
-    debug: true,
     app: {
         head: {
             charset: 'utf-8',
@@ -43,5 +41,22 @@ export default defineNuxtConfig({
     },
     build : {
         transpile: ['vue-toastification']
+    },
+    nitro: {
+        hooks: {
+            'dev:reload': () => require('sharp')
+        }
+    },
+    image: {
+        providers: {
+            customIPX: {
+                name: 'customIPX', // optional value to overrider provider name
+                provider: '~/providers/ipx', // Path to custom provider
+                options: {
+                    // ... provider options
+                }
+            }
+        },
+        provider: 'customIPX',
     }
 })

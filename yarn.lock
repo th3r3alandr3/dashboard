@@ -1459,6 +1459,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/sharp@npm:^0":
+  version: 0.31.1
+  resolution: "@types/sharp@npm:0.31.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 226871181fc88b5ef8a6bc32c1e14a3426cc45480ed49536c45bb5c166c089169b8fe3e5c57aea8c34cc40b08311a95d5582c1a2f540f4425eb66fea3d6e0489
+  languageName: node
+  linkType: hard
+
 "@types/sqlite3@npm:^3.1.5":
   version: 3.1.8
   resolution: "@types/sqlite3@npm:3.1.8"
@@ -8265,6 +8274,7 @@ __metadata:
     "@nuxt/image-edge": ^1.0.0-27840416.dc1ed65
     "@nuxtjs/tailwindcss": ^6.2.0
     "@sidebase/nuxt-auth": ^0.4.0-alpha.5
+    "@types/sharp": ^0
     "@typescript-eslint/eslint-plugin": ^5.50.0
     "@typescript-eslint/parser": ^5.50.0
     "@vue-macros/nuxt": ^0.3.8
@@ -8284,6 +8294,7 @@ __metadata:
     nuxt-icons: ^3.1.0
     postcss: ^8.4.21
     puppeteer: ^19.5.2
+    sharp: ^0.31.3
     tailwindcss: ^3.2.4
     ts-md5: ^1.3.1
     typescript: ^4.9.5
@@ -8451,7 +8462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.31.2":
+"sharp@npm:^0.31.2, sharp@npm:^0.31.3":
   version: 0.31.3
   resolution: "sharp@npm:0.31.3"
   dependencies:

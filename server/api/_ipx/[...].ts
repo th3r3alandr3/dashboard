@@ -8,8 +8,9 @@ export default defineEventHandler(async (event) => {
         return event;
     }
 
+    const {imagePath} = useRuntimeConfig();
     const ipx = createIPX({
-        dir: '/var/www/dashboard/public', // absolute path to images dir
+        dir: imagePath, // absolute path to images dir
         domains: [], // allowed external domains (should match domains option in nuxt.config)
         alias: {}, // base alias
         sharp: {}, // sharp options

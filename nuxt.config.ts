@@ -35,6 +35,7 @@ export default defineNuxtConfig({
         databasePath: process.env.DATABASE_PATH,
         baseURL: process.env.BASE_URL,
         usePuppeteerOptions: process.env.USE_PUPPETEER_OPTIONS,
+        imagePath: process.env.IMAGE_PATH,
     },
     auth: {
         origin: process.env.BASE_URL,

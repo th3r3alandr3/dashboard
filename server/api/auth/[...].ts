@@ -1,6 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import {NuxtAuthHandler} from '#auth'
-import axios from "axios";
 import {initializeDatabase} from "~/server/database/database";
 import * as Users from "~/server/database/users";
 

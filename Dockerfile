@@ -5,8 +5,8 @@ RUN apt update && apt install libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 li
 COPY . /dashboard
 WORKDIR /dashboard
 RUN npm install pm2@latest -g
-RUN npm install  \
-RUN npm run build  \
-RUN pm2 start ecosystem.config.js
+RUN yarn install
+RUN yarn run build
+CMD ["pm2-runtime", "ecosystem.config.js"]
 
 EXPOSE 3000

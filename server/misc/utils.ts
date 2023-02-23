@@ -25,14 +25,6 @@ export async function createScreenshot(url: string, fileName: string) {
         type: 'jpeg',
         fullPage: false
     });
-    if (existsSync(`.output`)) {
-        await page.screenshot({
-            path: `.output/public/thumbnails/${fileName}.jpeg`,
-            quality: 100,
-            type: 'jpeg',
-            fullPage: false
-        });
-    }
     await page.emulateMediaFeatures([{name: 'prefers-color-scheme', value: 'light'}]);
     await page.setViewport({width: 1920, height: 1080});
     try {
@@ -46,14 +38,6 @@ export async function createScreenshot(url: string, fileName: string) {
         type: 'jpeg',
         fullPage: false
     });
-    if (existsSync(`.output`)) {
-        await page.screenshot({
-            path: `.output/public/thumbnails/${fileName}.jpeg`,
-            quality: 100,
-            type: 'jpeg',
-            fullPage: false
-        });
-    }
     await browser.close();
     return {dark: `/${fileName}.jpeg`, light: `/${fileName}-light.jpeg`};
 }

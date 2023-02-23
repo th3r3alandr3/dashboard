@@ -8,7 +8,6 @@ export async function createScreenshot(url: string, fileName: string) {
     const { usePuppeteerOptions } = useRuntimeConfig();
     const puppeteerOptions = {
         headless: true,
-        executablePath: '/usr/bin/chromium-browser',
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     };
     const browser = await puppeteer.launch(usePuppeteerOptions === 'true' ? puppeteerOptions : undefined);
